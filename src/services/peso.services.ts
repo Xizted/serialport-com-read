@@ -9,6 +9,7 @@ const getPesoServices = () =>
         path: path,
         baudRate: 9600,
         autoOpen: false,
+        lock: true,
       },
       (err) => {
         if (err) {
@@ -26,6 +27,13 @@ const getPesoServices = () =>
     });
     serialPort.on('open', () => {
       console.log('Serial Port Opend');
+      const timeOut = setTimeout(() => {
+        if (serialPort.isOpen) {
+          clearTimeout(timeOut);
+          rej('The balance is not connected');
+          return;
+        }
+      }, 10000);
     });
 
     serialPort.on('data', (data: string, err: Error) => {
@@ -33,7 +41,12 @@ const getPesoServices = () =>
         rej(err);
         return;
       }
-      serialPort.on('close', () => console.log('Serial Port Close'));
+      serialPort.close((err) => {
+        if (err) {
+          rej(err);
+          return;
+        }
+      });
       res(data);
       return;
     });
