@@ -1,8 +1,8 @@
 import { SerialPort } from 'serialport';
 
-const getPesoServices = () =>
+export const getPesoServices = () =>
   new Promise<string>((res, rej) => {
-    const path = 'COM1';
+    const path = 'COM2';
 
     const serialPort = new SerialPort(
       {
@@ -52,4 +52,13 @@ const getPesoServices = () =>
     });
   });
 
-export default getPesoServices;
+export const getPortService = () =>
+  new Promise<any[]>((res, rej) => {
+    SerialPort.list().then((ports) => {
+      let coms: any[] = [];
+      ports.forEach((port) => {
+        coms.push(port);
+      });
+      res(coms);
+    });
+  });

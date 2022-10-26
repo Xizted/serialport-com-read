@@ -1,6 +1,5 @@
 import { MockBinding } from '@serialport/binding-mock';
 import { SerialPortStream } from '@serialport/stream';
-import { ReadlineParser } from 'serialport';
 
 const getPesoTestServices = () =>
   new Promise<string>((res, rej) => {
