@@ -2,7 +2,7 @@ import { SerialPort } from 'serialport';
 
 export const getPesoServices = () =>
   new Promise<string>((res, rej) => {
-    const path = 'COM2';
+    const path = 'COM1';
 
     const serialPort = new SerialPort(
       {
@@ -47,7 +47,7 @@ export const getPesoServices = () =>
           return;
         }
       });
-      res(data);
+      res(data.toString());
       return;
     });
   });
