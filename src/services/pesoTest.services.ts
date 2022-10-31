@@ -16,21 +16,13 @@ const getPesoTestServices = () =>
 
     port.open((err) => {
       if (err) {
-        rej(err);
+        rej(new Error('The balance is not connected'));
         return;
       }
     });
 
     port.on('open', () => {
       console.log('Serial Port Opend');
-
-      const timeOut = setTimeout(() => {
-        if (port.isOpen) {
-          clearTimeout(timeOut);
-          rej('The balance is not connected');
-          return;
-        }
-      }, 10000);
 
       const data = [
         '=0000001kg',

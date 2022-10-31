@@ -4,36 +4,22 @@ export const getPesoServices = () =>
   new Promise<string>((res, rej) => {
     const path = 'COM1';
 
-    const serialPort = new SerialPort(
-      {
-        path: path,
-        baudRate: 9600,
-        autoOpen: false,
-        lock: true,
-      },
-      (err) => {
-        if (err) {
-          rej(err);
-          return;
-        }
-      }
-    );
+    const serialPort = new SerialPort({
+      path: path,
+      baudRate: 9600,
+      autoOpen: false,
+      lock: true,
+    });
 
     serialPort.open((err) => {
       if (err) {
-        rej(err);
+        rej(new Error('The balance is not connected'));
         return;
       }
     });
+
     serialPort.on('open', () => {
       console.log('Serial Port Opend');
-      const timeOut = setTimeout(() => {
-        if (serialPort.isOpen) {
-          clearTimeout(timeOut);
-          rej('The balance is not connected');
-          return;
-        }
-      }, 10000);
     });
 
     serialPort.on('data', (data: string, err: Error) => {
