@@ -9,7 +9,7 @@
     "build": "tsc",
     "eslint": "eslint .",
     "install:service": "qckwinsvc --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately",
-    "remove:service": "qckwinsvc --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately"
+    "remove:service": "qckwinsvc --uninstall --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.4",
