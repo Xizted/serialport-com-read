@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development nodemon ./src/index.ts",
     "build": "tsc",
     "eslint": "eslint .",
-    "install:service": "   --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately",
+    "install:service": "qckwinsvc --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately",
     "remove:service": "qckwinsvc --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately"
   },
   "devDependencies": {
