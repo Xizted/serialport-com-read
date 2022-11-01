@@ -25,19 +25,19 @@ const getPesoTestServices = () =>
       console.log('Serial Port Opend');
 
       const data = [
-        '=0000001kg',
-        '=0000002kg',
-        '=0000003kg',
-        '=0000004kg',
-        '=0000005kg',
-        '=0000006kg',
-        '=0000007kg',
-        '=0000008kg',
-        '=0000009kg',
-        '=0000010kg',
-        '=0000011kg',
-        '=0000012kg',
-        '=0000013kg',
+        '= \n \r 0000001kg',
+        '= \n \r 0000002kg',
+        '= \n \r 0000003kg',
+        '= \n \r 0000004kg',
+        '= \n \r 0000005kg',
+        '= \n \r 0000006kg',
+        '= \n \r 0000007kg',
+        '= \n \r 0000008kg',
+        '= \n \r 0000009kg',
+        '= \n \r 0000010kg',
+        '= \n \r 0000011kg',
+        '= \n \r 0000012kg',
+        '= \n \r 0000013kg',
       ];
 
       port.port?.emitData(
@@ -45,7 +45,7 @@ const getPesoTestServices = () =>
       );
     });
 
-    port.on('data', (data: string, err: Error) => {
+    port.on('data', (data: Buffer, err: Error) => {
       if (err) {
         rej(err);
         return;
@@ -56,7 +56,8 @@ const getPesoTestServices = () =>
           return;
         }
       });
-      res(data.toString());
+
+      if (data.toString().includes('kg')) res(data.toString());
       return;
     });
   });

@@ -7,9 +7,12 @@
     "start": "node ./dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon ./src/index.ts",
     "build": "tsc",
+    "buid:install": "yarn build && yarn service:install",
     "eslint": "eslint .",
-    "install:service": "qckwinsvc --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately",
-    "remove:service": "qckwinsvc --uninstall --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately"
+    "service:install": "qckwinsvc --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\" --startImmediately",
+    "service:remove": "qckwinsvc --uninstall --name \"balanza\" --description \"api de la balanza\" --script \"./dist/index.js\"",
+    "debug:dev": "nodemon ./src/debug.ts",
+    "debug:prod": "node ./dist/debug.js"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.4",

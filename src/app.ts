@@ -19,7 +19,7 @@ app.get(
   '/',
   process.env.NODE_ENV === 'development'
     ? getPesoTestController
-    : getPesoController
+    : getPesoTestController
 );
 app.get('/listPort', getPortCom);
 

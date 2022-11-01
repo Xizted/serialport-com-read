@@ -1,4 +1,5 @@
 import { SerialPort } from 'serialport';
+import { ReadlineParser } from '@serialport/parser-readline';
 
 export const getPesoServices = () =>
   new Promise<string>((res, rej) => {
@@ -11,6 +12,12 @@ export const getPesoServices = () =>
       lock: true,
     });
 
+    const parser = serialPort.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+
+    serialPort.on('open', () => {
+      console.log('Serial Port Opened');
+    });
+
     serialPort.open((err) => {
       if (err) {
         rej(new Error('The balance is not connected'));
@@ -18,11 +25,7 @@ export const getPesoServices = () =>
       }
     });
 
-    serialPort.on('open', () => {
-      console.log('Serial Port Opend');
-    });
-
-    serialPort.on('data', (data: string, err: Error) => {
+    parser.on('data', (data: Buffer, err: Error) => {
       if (err) {
         rej(err);
         return;
@@ -33,6 +36,7 @@ export const getPesoServices = () =>
           return;
         }
       });
+      console.log('Data: ', data.toString());
       res(data.toString());
       return;
     });
